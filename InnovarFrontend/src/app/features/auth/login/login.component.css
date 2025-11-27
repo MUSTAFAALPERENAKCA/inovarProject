@@ -1,0 +1,82 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem;
+}
+
+.login-card-wrapper {
+  width: 100%;
+  max-width: 420px;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-header h1 {
+  color: var(--primary-color);
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.login-header p {
+  color: var(--text-color-secondary);
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.field label {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.login-footer {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+::ng-deep .p-card {
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+::ng-deep .p-card-body {
+  padding: 2.5rem;
+}
+
+.field span.p-input-icon-right {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.field span.p-input-icon-right i {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--text-color-secondary);
+  z-index: 1;
+}
+
+.field span.p-input-icon-right i:hover {
+  color: var(--primary-color);
+}
+

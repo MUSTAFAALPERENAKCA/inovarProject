@@ -1,0 +1,191 @@
+<div class="detail-container" *ngIf="tube">
+  <div class="info-section">
+    <p-card>
+      <div class="card-header">
+        <h2>Patient Information</h2>
+      </div>
+      <div class="info-grid">
+        <div class="info-item">
+          <strong>Name:</strong> {{ tube.patient.firstName }} {{ tube.patient.lastName }}
+        </div>
+        <div class="info-item">
+          <strong>National ID:</strong> {{ tube.patient.nationalId }}
+        </div>
+        <div class="info-item" *ngIf="tube.patient.phoneNumber">
+          <strong>Phone:</strong> {{ tube.patient.phoneNumber }}
+        </div>
+        <div class="info-item" *ngIf="tube.patient.dateOfBirth">
+          <strong>Date of Birth:</strong> {{ tube.patient.dateOfBirth | date: 'shortDate' }}
+        </div>
+      </div>
+    </p-card>
+
+    <p-card>
+      <div class="card-header">
+        <h2>Tube Information</h2>
+      </div>
+      <div class="info-grid">
+        <div class="info-item">
+          <strong>Barcode:</strong> {{ tube.barcodeNumber }}
+        </div>
+        <div class="info-item">
+          <strong>Position:</strong> Row {{ tube.rackRow }}, Column {{ tube.rackColumn }}
+        </div>
+        <div class="info-item">
+          <strong>Status:</strong>
+          <p-tag [value]="tube.status" [severity]="getStatusSeverity(tube.status)"></p-tag>
+        </div>
+        <div class="info-item">
+          <strong>Collection Date:</strong> {{ tube.collectionDateTime | date: 'full' }}
+        </div>
+      </div>
+    </p-card>
+  </div>
+
+  <div class="results-section">
+    <p-card>
+      <div class="card-header">
+        <h2>Previous Lab Results</h2>
+      </div>
+      <p-table [value]="labResults" [paginator]="true" [rows]="5">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Test Type</th>
+            <th>Result Values</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-result>
+          <tr>
+            <td>{{ result.testType }}</td>
+            <td>
+              <div *ngFor="let value of result.resultValues | keyvalue" class="result-value">
+                <strong>{{ value.key }}:</strong> {{ value.value }}
+              </div>
+            </td>
+            <td>
+              <p-tag [value]="result.resultStatus" [severity]="result.resultStatus === 'Final' ? 'success' : 'warn'"></p-tag>
+            </td>
+            <td>{{ result.resultDateTime | date: 'short' }}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="4">No lab results yet</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-card>
+  </div>
+
+  <div class="form-section">
+    <p-card>
+      <div class="card-header">
+        <h2>New Lab Result</h2>
+      </div>
+      <form [formGroup]="resultForm" (ngSubmit)="onSubmit()" class="result-form">
+        <div class="field">
+          <label for="testType">Test Type *</label>
+          <input
+            id="testType"
+            type="text"
+            pInputText
+            formControlName="testType"
+            placeholder="e.g., Complete Blood Count, Glucose"
+            styleClass="w-full"
+          />
+        </div>
+
+        <div class="field">
+          <label>Result Values *</label>
+          <small class="text-color-secondary" style="margin-bottom: 0.5rem; display: block;">
+            Enter parameter name and its value (e.g., Hemoglobin: 13.2)
+          </small>
+          <div class="result-values-container">
+            <div *ngFor="let rv of resultValues; let i = index" class="result-value-row">
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 0.25rem;">
+                <label style="font-size: 0.85rem; color: #6c757d; font-weight: 500;">Parameter</label>
+                <input
+                  type="text"
+                  pInputText
+                  [value]="rv.key"
+                  (input)="updateResultValueKey(i, $event)"
+                  placeholder="e.g., Hemoglobin, Glucose"
+                  styleClass="w-full"
+                />
+              </div>
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 0.25rem;">
+                <label style="font-size: 0.85rem; color: #6c757d; font-weight: 500;">Value</label>
+                <input
+                  type="text"
+                  pInputText
+                  [value]="rv.value"
+                  (input)="updateResultValueValue(i, $event)"
+                  placeholder="e.g., 13.2, 95"
+                  styleClass="w-full"
+                />
+              </div>
+              <p-button
+                icon="pi pi-times"
+                severity="danger"
+                [text]="true"
+                [rounded]="true"
+                (onClick)="removeResultValue(i)"
+                *ngIf="resultValues.length > 1"
+                style="margin-top: 1.5rem;"
+                [disabled]="loading"
+              ></p-button>
+            </div>
+            <p-button
+              label="+ Add Value"
+              icon="pi pi-plus"
+              [outlined]="true"
+              type="button"
+              (onClick)="addResultValue()"
+              [disabled]="loading"
+              style="align-self: flex-start;"
+            ></p-button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="resultStatus">Result Status *</label>
+          <p-select
+            id="resultStatus"
+            formControlName="resultStatus"
+            [options]="statusOptions"
+            optionLabel="label"
+            optionValue="value"
+            styleClass="w-full"
+          ></p-select>
+        </div>
+
+        <div class="field">
+          <label for="comments">Comments</label>
+          <textarea
+            id="comments"
+            pInputTextarea
+            formControlName="comments"
+            rows="3"
+            placeholder="Additional comments..."
+            styleClass="w-full"
+          ></textarea>
+        </div>
+
+        <div class="form-actions">
+          <p-button
+            type="submit"
+            label="Save Result"
+            icon="pi pi-check"
+            [loading]="loading"
+            [disabled]="resultForm.invalid"
+          ></p-button>
+        </div>
+      </form>
+    </p-card>
+  </div>
+</div>
+
+<p-toast></p-toast>
+

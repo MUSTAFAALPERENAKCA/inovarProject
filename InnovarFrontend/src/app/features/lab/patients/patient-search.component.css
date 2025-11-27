@@ -1,0 +1,27 @@
+.medical-container {
+  padding: 1.5rem;
+}
+
+.medical-card {
+  margin-bottom: 1.5rem;
+}
+
+.p-field {
+  margin-bottom: 1rem;
+}
+
+.p-field label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--medical-text);
+}
+
+.p-datatable tr {
+  cursor: pointer;
+}
+
+.p-datatable tr:hover {
+  background-color: var(--medical-accent) !important;
+}
+

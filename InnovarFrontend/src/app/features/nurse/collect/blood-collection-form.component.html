@@ -1,0 +1,193 @@
+<div class="form-container">
+  <p-card>
+    <div class="card-header">
+      <h2>Register Blood Tube</h2>
+      <p>Enter patient information and tube details</p>
+    </div>
+
+    <form [formGroup]="collectionForm" (ngSubmit)="onSubmit()" class="collection-form">
+      <div class="form-section patient-section">
+        <div class="section-header">
+          <i class="pi pi-user section-icon"></i>
+          <h3>Patient Information</h3>
+        </div>
+        <div formGroupName="patient" class="form-grid">
+          <div class="field">
+            <label for="nationalId">National ID (11 digits) *</label>
+            <input
+              id="nationalId"
+              type="text"
+              pInputText
+              formControlName="nationalId"
+              placeholder="12345678901"
+              maxlength="11"
+              [class.ng-invalid]="collectionForm.get('patient')?.get('nationalId')?.invalid && collectionForm.get('patient')?.get('nationalId')?.touched"
+            />
+            <small class="p-error" *ngIf="collectionForm.get('patient')?.get('nationalId')?.invalid && collectionForm.get('patient')?.get('nationalId')?.touched">
+              National ID must be exactly 11 digits
+            </small>
+          </div>
+
+          <div class="field">
+            <label for="firstName">First Name *</label>
+            <input
+              id="firstName"
+              type="text"
+              pInputText
+              formControlName="firstName"
+              placeholder="John"
+              [class.ng-invalid]="collectionForm.get('patient')?.get('firstName')?.invalid && collectionForm.get('patient')?.get('firstName')?.touched"
+            />
+            <small class="p-error" *ngIf="collectionForm.get('patient')?.get('firstName')?.invalid && collectionForm.get('patient')?.get('firstName')?.touched">
+              First name is required
+            </small>
+          </div>
+
+          <div class="field">
+            <label for="lastName">Last Name *</label>
+            <input
+              id="lastName"
+              type="text"
+              pInputText
+              formControlName="lastName"
+              placeholder="Doe"
+              [class.ng-invalid]="collectionForm.get('patient')?.get('lastName')?.invalid && collectionForm.get('patient')?.get('lastName')?.touched"
+            />
+            <small class="p-error" *ngIf="collectionForm.get('patient')?.get('lastName')?.invalid && collectionForm.get('patient')?.get('lastName')?.touched">
+              Last name is required
+            </small>
+          </div>
+
+          <div class="field">
+            <label for="dateOfBirth">Date of Birth</label>
+            <input
+              id="dateOfBirth"
+              type="date"
+              pInputText
+              formControlName="dateOfBirth"
+              styleClass="w-full"
+            />
+          </div>
+
+          <div class="field">
+            <label for="gender">Gender</label>
+            <p-select
+              id="gender"
+              formControlName="gender"
+              [options]="genderOptions"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select Gender"
+              styleClass="w-full"
+            ></p-select>
+          </div>
+
+          <div class="field">
+            <label for="phoneNumber">Phone Number</label>
+            <input
+              id="phoneNumber"
+              type="text"
+              pInputText
+              formControlName="phoneNumber"
+              placeholder="+90 555 123 4567"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section tube-section">
+        <div class="section-header">
+          <i class="pi pi-flask section-icon"></i>
+          <h3>Tube Information</h3>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="barcodeNumber">Barcode Number *</label>
+            <input
+              id="barcodeNumber"
+              type="text"
+              pInputText
+              formControlName="barcodeNumber"
+              placeholder="TUBE-12345"
+              [class.ng-invalid]="collectionForm.get('barcodeNumber')?.invalid && collectionForm.get('barcodeNumber')?.touched"
+            />
+            <small class="p-error" *ngIf="collectionForm.get('barcodeNumber')?.invalid && collectionForm.get('barcodeNumber')?.touched">
+              Barcode number is required
+            </small>
+          </div>
+
+          <div class="field">
+            <label for="rackRow">Rack Row (1-10) *</label>
+            <p-inputNumber
+              id="rackRow"
+              formControlName="rackRow"
+              [min]="1"
+              [max]="10"
+              [showButtons]="true"
+              styleClass="w-full"
+            ></p-inputNumber>
+          </div>
+
+          <div class="field">
+            <label for="rackColumn">Rack Column (1-10) *</label>
+            <p-inputNumber
+              id="rackColumn"
+              formControlName="rackColumn"
+              [min]="1"
+              [max]="10"
+              [showButtons]="true"
+              styleClass="w-full"
+            ></p-inputNumber>
+          </div>
+
+          <div class="field full-width">
+            <label for="notes">Notes</label>
+            <textarea
+              id="notes"
+              pInputTextarea
+              formControlName="notes"
+              rows="3"
+              placeholder="Additional notes..."
+              styleClass="w-full"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <p-button
+          type="submit"
+          label="Register Tube"
+          icon="pi pi-check"
+          [loading]="loading"
+          [disabled]="collectionForm.invalid"
+        ></p-button>
+        <p-button
+          type="button"
+          label="Clear"
+          icon="pi pi-times"
+          severity="secondary"
+          [disabled]="loading"
+          (onClick)="collectionForm.reset({
+            rackRow: 1,
+            rackColumn: 1,
+            patient: {
+              nationalId: '',
+              firstName: '',
+              lastName: '',
+              dateOfBirth: null,
+              gender: null,
+              phoneNumber: '',
+              notes: ''
+            },
+            barcodeNumber: '',
+            notes: ''
+          })"
+        ></p-button>
+      </div>
+    </form>
+  </p-card>
+</div>
+
+<p-toast></p-toast>
+

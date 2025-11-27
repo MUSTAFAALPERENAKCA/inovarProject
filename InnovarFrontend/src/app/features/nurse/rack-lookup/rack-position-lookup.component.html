@@ -1,0 +1,75 @@
+<div class="lookup-container">
+  <p-card>
+    <div class="card-header">
+      <h2>Rack Position Lookup</h2>
+      <p>Find a tube by its rack position (row and column)</p>
+    </div>
+
+    <form [formGroup]="lookupForm" (ngSubmit)="onSearch()" class="lookup-form">
+      <div class="form-row">
+        <div class="field">
+          <label for="row">Row (1-10) *</label>
+          <p-inputNumber
+            id="row"
+            formControlName="row"
+            [min]="1"
+            [max]="10"
+            [showButtons]="true"
+            styleClass="w-full"
+          ></p-inputNumber>
+        </div>
+
+        <div class="field">
+          <label for="column">Column (1-10) *</label>
+          <p-inputNumber
+            id="column"
+            formControlName="column"
+            [min]="1"
+            [max]="10"
+            [showButtons]="true"
+            styleClass="w-full"
+          ></p-inputNumber>
+        </div>
+      </div>
+
+      <p-button
+        type="submit"
+        label="Search"
+        icon="pi pi-search"
+        [loading]="loading"
+        [disabled]="lookupForm.invalid"
+      ></p-button>
+    </form>
+
+    <div class="result-section" *ngIf="tube">
+      <h3>Tube Found</h3>
+      <p-card>
+        <div class="tube-info">
+          <div class="info-row">
+            <strong>Patient:</strong>
+            <span>{{ tube.patient.firstName }} {{ tube.patient.lastName }}</span>
+          </div>
+          <div class="info-row">
+            <strong>National ID:</strong>
+            <span>{{ tube.patient.nationalId }}</span>
+          </div>
+          <div class="info-row">
+            <strong>Barcode:</strong>
+            <span>{{ tube.barcodeNumber }}</span>
+          </div>
+          <div class="info-row">
+            <strong>Status:</strong>
+            <p-tag [value]="tube.status" [severity]="getStatusSeverity(tube.status)"></p-tag>
+          </div>
+          <div class="info-row">
+            <strong>Collection Date:</strong>
+            <span>{{ tube.collectionDateTime | date: 'short' }}</span>
+          </div>
+        </div>
+      </p-card>
+    </div>
+  </p-card>
+</div>
+
+<p-toast></p-toast>
+

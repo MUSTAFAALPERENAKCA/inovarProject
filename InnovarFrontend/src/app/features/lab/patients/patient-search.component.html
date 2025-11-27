@@ -1,0 +1,138 @@
+<div class="medical-container">
+  <p-toast></p-toast>
+  
+  <p-card header="Search Patient" class="medical-card">
+    <div class="p-fluid">
+      <div class="p-field mb-3">
+        <label for="searchTerm">Search by National ID or Name</label>
+        <input 
+          id="searchTerm" 
+          type="text" 
+          pInputText 
+          [(ngModel)]="searchTerm" 
+          (keyup.enter)="onSearch()"
+          placeholder="Enter National ID or patient name"
+          class="w-full"
+        />
+      </div>
+      <p-button 
+        label="Search" 
+        icon="pi pi-search" 
+        (onClick)="onSearch()"
+        [loading]="loading"
+        class="w-full"
+      ></p-button>
+    </div>
+  </p-card>
+
+  <p-card *ngIf="patients.length > 0" header="Search Results" class="medical-card">
+    <p-table [value]="patients" [paginator]="true" [rows]="10">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>National ID</th>
+          <th>Name</th>
+          <th>Date of Birth</th>
+          <th>Gender</th>
+          <th>Phone</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-patient>
+        <tr (click)="selectPatient(patient)" style="cursor: pointer;">
+          <td>{{ patient.nationalId }}</td>
+          <td>{{ patient.firstName }} {{ patient.lastName }}</td>
+          <td>{{ patient.dateOfBirth | date:'shortDate' }}</td>
+          <td>{{ patient.gender || 'N/A' }}</td>
+          <td>{{ patient.phoneNumber || 'N/A' }}</td>
+          <td>
+            <p-button 
+              icon="pi pi-eye" 
+              label="View Details" 
+              [outlined]="true"
+              (onClick)="selectPatient(patient); $event.stopPropagation()"
+            ></p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+
+  <p-card *ngIf="selectedPatient" header="Patient Details & Lab Results" class="medical-card">
+    <div class="mb-4">
+      <h3>{{ selectedPatient.firstName }} {{ selectedPatient.lastName }}</h3>
+      <p><strong>National ID:</strong> {{ selectedPatient.nationalId }}</p>
+      <p><strong>Date of Birth:</strong> {{ selectedPatient.dateOfBirth | date:'shortDate' }}</p>
+      <p><strong>Gender:</strong> {{ selectedPatient.gender || 'N/A' }}</p>
+      <p><strong>Phone:</strong> {{ selectedPatient.phoneNumber || 'N/A' }}</p>
+      <p *ngIf="selectedPatient.notes"><strong>Notes:</strong> {{ selectedPatient.notes }}</p>
+    </div>
+
+    <p-tabs>
+      <p-tab header="Blood Tubes">
+        <p-table [value]="patientTubes" [paginator]="true" [rows]="10">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Barcode</th>
+              <th>Rack Position</th>
+              <th>Collection Date</th>
+              <th>Status</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-tube>
+            <tr>
+              <td>{{ tube.barcodeNumber }}</td>
+              <td>Row {{ tube.rackRow }}, Col {{ tube.rackColumn }}</td>
+              <td>{{ tube.collectionDateTime | date:'short' }}</td>
+              <td>
+                <p-tag [value]="tube.status" [severity]="getStatusSeverity(tube.status)"></p-tag>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="4" class="text-center">No blood tubes found for this patient.</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-tab>
+
+      <p-tab header="Lab Results">
+        <p-table [value]="patientResults" [paginator]="true" [rows]="10">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Test Type</th>
+              <th>Result Values</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Performed By</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-result>
+            <tr>
+              <td>{{ result.testType }}</td>
+              <td>
+                <div *ngFor="let value of result.resultValues | keyvalue">
+                  <strong>{{ value.key }}:</strong> {{ value.value }}
+                </div>
+              </td>
+              <td>
+                <p-tag 
+                  [value]="result.resultStatus" 
+                  [severity]="result.resultStatus === 'Final' ? 'success' : 'warn'"
+                ></p-tag>
+              </td>
+              <td>{{ result.resultDateTime | date:'short' }}</td>
+              <td>{{ result.performedByUserName }}</td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="5" class="text-center">No lab results found for this patient.</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-tab>
+    </p-tabs>
+  </p-card>
+</div>
+

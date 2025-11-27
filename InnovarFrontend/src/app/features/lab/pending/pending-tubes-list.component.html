@@ -1,0 +1,58 @@
+<div class="pending-container">
+  <p-card>
+    <div class="card-header">
+      <h2>Pending Tubes</h2>
+      <p>Tubes awaiting lab test results</p>
+    </div>
+
+    <p-table
+      [value]="tubes"
+      [loading]="loading"
+      [paginator]="true"
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      styleClass="p-datatable-striped"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Patient Name</th>
+          <th>National ID</th>
+          <th>Barcode</th>
+          <th>Position</th>
+          <th>Collection Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-tube>
+        <tr>
+          <td>{{ tube.patient.firstName }} {{ tube.patient.lastName }}</td>
+          <td>{{ tube.patient.nationalId }}</td>
+          <td>{{ tube.barcodeNumber }}</td>
+          <td>({{ tube.rackRow }}, {{ tube.rackColumn }})</td>
+          <td>{{ tube.collectionDateTime | date: 'short' }}</td>
+          <td>
+            <p-tag [value]="tube.status" [severity]="getStatusSeverity(tube.status)"></p-tag>
+          </td>
+          <td>
+            <p-button
+              label="Enter Result"
+              icon="pi pi-plus"
+              [outlined]="true"
+              [routerLink]="['/lab/tubes', tube.id]"
+            ></p-button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="7">No pending tubes found</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+</div>
+
+<p-toast></p-toast>
+

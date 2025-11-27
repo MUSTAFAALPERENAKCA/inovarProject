@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "nYCATtfsGKIcKQ3LYbwX6Xe2c31voUPrq4MyC9giGYc=",
+  "Source": "InnovarAPI",
+  "BasePath": "_content/InnovarAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

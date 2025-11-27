@@ -1,0 +1,66 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>Lab Technician Dashboard</h1>
+    <p class="subtitle">Welcome! Manage laboratory tests and results</p>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <i class="pi pi-spin pi-spinner" style="font-size: 3rem; color: #667eea;"></i>
+    <p>Loading dashboard data...</p>
+  </div>
+
+  <div *ngIf="!loading" class="stats-grid">
+    <p-card>
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="pi pi-clock" style="font-size: 3rem; color: var(--orange-500);"></i>
+        </div>
+        <div class="stat-content">
+          <h2>{{ pendingCount }}</h2>
+          <p>Pending Tubes</p>
+        </div>
+      </div>
+    </p-card>
+
+    <p-card>
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="pi pi-check-circle" style="font-size: 3rem; color: var(--green-500);"></i>
+        </div>
+        <div class="stat-content">
+          <h2>{{ completedToday }}</h2>
+          <p>Completed Today</p>
+        </div>
+      </div>
+    </p-card>
+  </div>
+
+  <div *ngIf="!loading" class="actions-grid">
+    <p-card>
+      <div class="action-card">
+        <h3>Pending Tubes</h3>
+        <p>View and process tubes awaiting lab results</p>
+        <p-button
+          label="View Pending"
+          icon="pi pi-list"
+          routerLink="/lab/pending"
+          styleClass="w-full"
+        ></p-button>
+      </div>
+    </p-card>
+
+    <p-card>
+      <div class="action-card">
+        <h3>Search Patient</h3>
+        <p>Search for patients and view their lab results</p>
+        <p-button
+          label="Search Patient"
+          icon="pi pi-search"
+          routerLink="/lab/patients"
+          styleClass="w-full"
+        ></p-button>
+      </div>
+    </p-card>
+  </div>
+</div>
+

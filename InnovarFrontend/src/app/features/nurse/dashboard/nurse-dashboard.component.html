@@ -1,0 +1,59 @@
+<div class="dashboard-container">
+  <h1>Nurse Dashboard</h1>
+
+  <div class="stats-grid">
+    <p-card>
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="pi pi-inbox" style="font-size: 3rem; color: var(--primary-color);"></i>
+        </div>
+        <div class="stat-content">
+          <h2>{{ tubesToday }}</h2>
+          <p>Tubes Registered Today</p>
+        </div>
+      </div>
+    </p-card>
+  </div>
+
+  <div class="actions-grid">
+    <p-card>
+      <div class="action-card">
+        <h3>Register New Blood Tube</h3>
+        <p>Collect a blood sample and register it in the system</p>
+        <p-button
+          label="Register Tube"
+          icon="pi pi-plus"
+          routerLink="/nurse/collect"
+          styleClass="w-full"
+        ></p-button>
+      </div>
+    </p-card>
+
+    <p-card>
+      <div class="action-card">
+        <h3>Rack Position Lookup</h3>
+        <p>Find a tube by its rack position (row/column)</p>
+        <p-button
+          label="Lookup Position"
+          icon="pi pi-search"
+          routerLink="/nurse/rack-lookup"
+          styleClass="w-full"
+        ></p-button>
+      </div>
+    </p-card>
+
+    <p-card>
+      <div class="action-card">
+        <h3>My Tubes</h3>
+        <p>View and search all tubes you've registered</p>
+        <p-button
+          label="View Tubes"
+          icon="pi pi-list"
+          routerLink="/nurse/tubes"
+          styleClass="w-full"
+        ></p-button>
+      </div>
+    </p-card>
+  </div>
+</div>
+

@@ -1,0 +1,61 @@
+.search-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.card-header {
+  margin-bottom: 2rem;
+}
+
+.card-header h2 {
+  margin: 0 0 0.5rem 0;
+  color: var(--text-color);
+  font-size: 1.75rem;
+}
+
+.card-header p {
+  margin: 0;
+  color: var(--text-color-secondary);
+}
+
+.search-section {
+  margin-bottom: 1.5rem;
+}
+
+.tube-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.detail-section {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #fafafa;
+}
+
+.detail-section h3 {
+  margin: 0 0 1rem 0;
+  color: var(--primary-color);
+  font-size: 1.1rem;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 0.5rem;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+}
+
+.detail-row strong {
+  min-width: 120px;
+  color: var(--text-color);
+}
+
+::ng-deep .p-card-body {
+  padding: 2rem;
+}
+

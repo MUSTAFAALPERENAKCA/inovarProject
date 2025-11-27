@@ -1,0 +1,114 @@
+<div class="search-container">
+  <p-card>
+    <div class="card-header">
+      <h2>My Tubes</h2>
+      <p>Search and view all tubes you've registered</p>
+    </div>
+
+    <div class="search-section">
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input
+          type="text"
+          pInputText
+          [(ngModel)]="searchTerm"
+          (input)="onSearch()"
+          placeholder="Search by barcode, National ID, or patient name..."
+          styleClass="w-full"
+        />
+      </span>
+    </div>
+
+    <p-table
+      [value]="filteredTubes"
+      [loading]="loading"
+      [paginator]="true"
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      styleClass="p-datatable-striped"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Patient Name</th>
+          <th>National ID</th>
+          <th>Barcode</th>
+          <th>Position</th>
+          <th>Status</th>
+          <th>Collection Date</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-tube>
+        <tr>
+          <td>{{ tube.patient.firstName }} {{ tube.patient.lastName }}</td>
+          <td>{{ tube.patient.nationalId }}</td>
+          <td>{{ tube.barcodeNumber }}</td>
+          <td>({{ tube.rackRow }}, {{ tube.rackColumn }})</td>
+          <td>
+            <p-tag [value]="tube.status" [severity]="getStatusSeverity(tube.status)"></p-tag>
+          </td>
+          <td>{{ tube.collectionDateTime | date: 'short' }}</td>
+          <td>
+            <p-button
+              icon="pi pi-eye"
+              [text]="true"
+              severity="info"
+              (onClick)="showDetails(tube)"
+              pTooltip="View Details"
+            ></p-button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="7">No tubes found</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+</div>
+
+<p-dialog
+  [(visible)]="dialogVisible"
+  [modal]="true"
+  [style]="{ width: '600px' }"
+  header="Tube Details"
+>
+  <div class="tube-details" *ngIf="selectedTube">
+    <div class="detail-section">
+      <h3>Patient Information</h3>
+      <div class="detail-row">
+        <strong>Name:</strong> {{ selectedTube.patient.firstName }} {{ selectedTube.patient.lastName }}
+      </div>
+      <div class="detail-row">
+        <strong>National ID:</strong> {{ selectedTube.patient.nationalId }}
+      </div>
+      <div class="detail-row" *ngIf="selectedTube.patient.phoneNumber">
+        <strong>Phone:</strong> {{ selectedTube.patient.phoneNumber }}
+      </div>
+    </div>
+    <div class="detail-section">
+      <h3>Tube Information</h3>
+      <div class="detail-row">
+        <strong>Barcode:</strong> {{ selectedTube.barcodeNumber }}
+      </div>
+      <div class="detail-row">
+        <strong>Position:</strong> Row {{ selectedTube.rackRow }}, Column {{ selectedTube.rackColumn }}
+      </div>
+      <div class="detail-row">
+        <strong>Status:</strong>
+        <p-tag [value]="selectedTube.status" [severity]="getStatusSeverity(selectedTube.status)"></p-tag>
+      </div>
+      <div class="detail-row">
+        <strong>Collection Date:</strong> {{ selectedTube.collectionDateTime | date: 'full' }}
+      </div>
+      <div class="detail-row" *ngIf="selectedTube.notes">
+        <strong>Notes:</strong> {{ selectedTube.notes }}
+      </div>
+    </div>
+  </div>
+</p-dialog>
+
+<p-toast></p-toast>
+
