@@ -133,7 +133,7 @@
                 [rounded]="true"
                 (onClick)="removeResultValue(i)"
                 *ngIf="resultValues.length > 1"
-                style="margin-top: 1.5rem;"
+                [style.margin-top]="'1.5rem'"
                 [disabled]="loading"
               ></p-button>
             </div>
@@ -144,7 +144,7 @@
               type="button"
               (onClick)="addResultValue()"
               [disabled]="loading"
-              style="align-self: flex-start;"
+              [style.align-self]="'flex-start'"
             ></p-button>
           </div>
         </div>

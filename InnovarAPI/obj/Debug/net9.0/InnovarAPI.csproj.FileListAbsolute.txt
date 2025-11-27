@@ -131,3 +131,4 @@ C:\Users\Pc\Desktop\innovarDenemeProjesi\InnovarAPI\bin\Debug\net9.0\ru\Microsof
 C:\Users\Pc\Desktop\innovarDenemeProjesi\InnovarAPI\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 C:\Users\Pc\Desktop\innovarDenemeProjesi\InnovarAPI\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 C:\Users\Pc\Desktop\innovarDenemeProjesi\InnovarAPI\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\Pc\Desktop\innovarDenemeProjesi\InnovarAPI\obj\Debug\net9.0\InnovarAPI.sourcelink.json
