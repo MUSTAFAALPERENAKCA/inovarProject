@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { Observable, tap, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 export interface LoginRequest {
@@ -10,10 +10,16 @@ export interface LoginRequest {
 
 export interface LoginResponse {
   token: string;
+  Token?: string; // Backend'den gelen property
   role: string;
+  Role?: string; // Backend'den gelen property
   fullName: string;
+  FullName?: string; // Backend'den gelen property
   userId: string;
+  UserId?: string | Guid; // Backend'den gelen property
 }
+
+type Guid = string;
 
 @Injectable({
   providedIn: 'root'
@@ -24,12 +30,25 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(credentials: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credentials).pipe(
-      tap(response => {
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('role', response.role);
-        localStorage.setItem('fullName', response.fullName);
-        localStorage.setItem('userId', response.userId);
+    return this.http.post<any>(`${this.apiUrl}/login`, credentials).pipe(
+      map(response => {
+        // Backend'den gelen response'u normalize et (PascalCase -> camelCase)
+        const normalizedResponse: LoginResponse = {
+          token: response.Token || response.token || '',
+          role: response.Role || response.role || '',
+          fullName: response.FullName || response.fullName || '',
+          userId: (response.UserId || response.userId)?.toString() || ''
+        };
+        
+        // LocalStorage'a kaydet
+        if (normalizedResponse.token) {
+          localStorage.setItem('token', normalizedResponse.token);
+          localStorage.setItem('role', normalizedResponse.role);
+          localStorage.setItem('fullName', normalizedResponse.fullName);
+          localStorage.setItem('userId', normalizedResponse.userId);
+        }
+        
+        return normalizedResponse;
       })
     );
   }

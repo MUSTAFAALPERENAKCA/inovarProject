@@ -1,9 +1,12 @@
 <div class="detail-container" *ngIf="tube">
   <div class="info-section">
-    <p-card>
-      <div class="card-header">
-        <h2>Patient Information</h2>
-      </div>
+    <p-panel header="Patient Information" [toggleable]="true" [collapsed]="false" styleClass="mb-4">
+      <ng-template pTemplate="header">
+        <div class="panel-header">
+          <i class="pi pi-user mr-2"></i>
+          <span>Patient Information</span>
+        </div>
+      </ng-template>
       <div class="info-grid">
         <div class="info-item">
           <strong>Name:</strong> {{ tube.patient.firstName }} {{ tube.patient.lastName }}
@@ -18,12 +21,15 @@
           <strong>Date of Birth:</strong> {{ tube.patient.dateOfBirth | date: 'shortDate' }}
         </div>
       </div>
-    </p-card>
+    </p-panel>
 
-    <p-card>
-      <div class="card-header">
-        <h2>Tube Information</h2>
-      </div>
+    <p-panel header="Tube Information" [toggleable]="true" [collapsed]="false" styleClass="mb-4">
+      <ng-template pTemplate="header">
+        <div class="panel-header">
+          <i class="pi pi-flask mr-2"></i>
+          <span>Tube Information</span>
+        </div>
+      </ng-template>
       <div class="info-grid">
         <div class="info-item">
           <strong>Barcode:</strong> {{ tube.barcodeNumber }}
@@ -39,14 +45,17 @@
           <strong>Collection Date:</strong> {{ tube.collectionDateTime | date: 'full' }}
         </div>
       </div>
-    </p-card>
+    </p-panel>
   </div>
 
   <div class="results-section">
-    <p-card>
-      <div class="card-header">
-        <h2>Previous Lab Results</h2>
-      </div>
+    <p-panel header="Previous Lab Results" [toggleable]="true" [collapsed]="false" styleClass="mb-4">
+      <ng-template pTemplate="header">
+        <div class="panel-header">
+          <i class="pi pi-file mr-2"></i>
+          <span>Previous Lab Results</span>
+        </div>
+      </ng-template>
       <p-table [value]="labResults" [paginator]="true" [rows]="5">
         <ng-template pTemplate="header">
           <tr>
@@ -76,14 +85,17 @@
           </tr>
         </ng-template>
       </p-table>
-    </p-card>
+    </p-panel>
   </div>
 
   <div class="form-section">
-    <p-card>
-      <div class="card-header">
-        <h2>New Lab Result</h2>
-      </div>
+    <p-panel header="New Lab Result" [toggleable]="true" [collapsed]="false">
+      <ng-template pTemplate="header">
+        <div class="panel-header">
+          <i class="pi pi-plus-circle mr-2"></i>
+          <span>New Lab Result</span>
+        </div>
+      </ng-template>
       <form [formGroup]="resultForm" (ngSubmit)="onSubmit()" class="result-form">
         <div class="field">
           <label for="testType">Test Type *</label>
@@ -183,7 +195,7 @@
           ></p-button>
         </div>
       </form>
-    </p-card>
+    </p-panel>
   </div>
 </div>
 

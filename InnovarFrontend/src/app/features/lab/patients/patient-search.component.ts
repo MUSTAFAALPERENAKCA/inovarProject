@@ -8,6 +8,8 @@ import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { TabsModule } from 'primeng/tabs';
 import { ToastModule } from 'primeng/toast';
+import { AvatarModule } from 'primeng/avatar';
+import { DividerModule } from 'primeng/divider';
 import { MessageService } from 'primeng/api';
 import { ApiService, Patient, BloodTube, LabResult } from '../../../core/services/api.service';
 
@@ -23,7 +25,9 @@ import { ApiService, Patient, BloodTube, LabResult } from '../../../core/service
     TableModule,
     TagModule,
     TabsModule,
-    ToastModule
+    ToastModule,
+    AvatarModule,
+    DividerModule
   ],
   providers: [MessageService],
   templateUrl: './patient-search.component.html',

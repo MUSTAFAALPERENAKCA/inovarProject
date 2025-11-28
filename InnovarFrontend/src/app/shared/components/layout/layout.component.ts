@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
+import { AvatarModule } from 'primeng/avatar';
+import { ChipModule } from 'primeng/chip';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [CommonModule, RouterModule, MenubarModule, ButtonModule],
+  imports: [CommonModule, RouterModule, ButtonModule, AvatarModule, ChipModule],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css'
 })

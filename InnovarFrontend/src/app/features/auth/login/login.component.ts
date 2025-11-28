@@ -7,6 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CardModule } from 'primeng/card';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
+import { DividerModule } from 'primeng/divider';
 import { MessageService } from 'primeng/api';
 import { AuthService } from '../../../core/services/auth.service';
 
@@ -20,7 +21,8 @@ import { AuthService } from '../../../core/services/auth.service';
     InputTextModule,
     CardModule,
     MessageModule,
-    ToastModule
+    ToastModule,
+    DividerModule
   ],
   providers: [MessageService],
   templateUrl: './login.component.html',
@@ -51,6 +53,9 @@ export class LoginComponent {
       this.authService.login(credentials).subscribe({
         next: (response) => {
           this.loading = false;
+          console.log('Login response:', response);
+          console.log('User role:', response.role);
+          
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
@@ -59,10 +64,22 @@ export class LoginComponent {
 
           // Redirect based on role
           setTimeout(() => {
-            if (response.role === 'Nurse') {
-              this.router.navigate(['/nurse/dashboard']);
-            } else if (response.role === 'LabTechnician') {
-              this.router.navigate(['/lab/dashboard']);
+            const role = response.role;
+            console.log('Redirecting with role:', role);
+            if (role === 'Nurse') {
+              this.router.navigate(['/nurse/dashboard']).then(success => {
+                console.log('Navigation success:', success);
+              }).catch(err => {
+                console.error('Navigation error:', err);
+              });
+            } else if (role === 'LabTechnician') {
+              this.router.navigate(['/lab/dashboard']).then(success => {
+                console.log('Navigation success:', success);
+              }).catch(err => {
+                console.error('Navigation error:', err);
+              });
+            } else {
+              console.error('Unknown role:', role);
             }
           }, 500);
         },

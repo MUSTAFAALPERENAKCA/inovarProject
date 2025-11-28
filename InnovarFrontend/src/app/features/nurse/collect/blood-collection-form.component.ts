@@ -9,6 +9,8 @@ import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
 import { ToastModule } from 'primeng/toast';
+import { FieldsetModule } from 'primeng/fieldset';
+import { DividerModule } from 'primeng/divider';
 import { MessageService } from 'primeng/api';
 import { ApiService } from '../../../core/services/api.service';
 
@@ -24,7 +26,9 @@ import { ApiService } from '../../../core/services/api.service';
     ButtonModule,
     SelectModule,
     TextareaModule,
-    ToastModule
+    ToastModule,
+    FieldsetModule,
+    DividerModule
   ],
   providers: [MessageService],
   templateUrl: './blood-collection-form.component.html',
@@ -33,6 +37,7 @@ import { ApiService } from '../../../core/services/api.service';
 export class BloodCollectionFormComponent {
   collectionForm: FormGroup;
   loading = false;
+  maxDate: string;
   genderOptions = [
     { label: 'Male', value: 'Male' },
     { label: 'Female', value: 'Female' },
@@ -45,6 +50,7 @@ export class BloodCollectionFormComponent {
     private router: Router,
     private messageService: MessageService
   ) {
+    this.maxDate = new Date().toISOString().split('T')[0];
     this.collectionForm = this.fb.group({
       patient: this.fb.group({
         nationalId: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],

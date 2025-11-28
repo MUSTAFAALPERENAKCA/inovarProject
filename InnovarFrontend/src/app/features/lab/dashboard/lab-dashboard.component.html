@@ -1,66 +1,106 @@
 <div class="dashboard-container">
-  <div class="dashboard-header">
-    <h1>Lab Technician Dashboard</h1>
-    <p class="subtitle">Welcome! Manage laboratory tests and results</p>
-  </div>
+  <p-card
+    [style]="{
+      'margin-bottom': '2rem',
+      border: 'none',
+      'box-shadow': 'none',
+      background: 'transparent'
+    }"
+  >
+    <ng-template pTemplate="body">
+      <div class="dashboard-header">
+        <div class="header-text">
+          <h1>Lab Technician Dashboard</h1>
+          <p class="subtitle">Welcome! Manage laboratory tests and results efficiently</p>
+        </div>
+        <p-button
+          label="View Pending Tubes"
+          icon="pi pi-clock"
+          routerLink="/lab/pending"
+          severity="warn"
+          [style]="{ height: '3.5rem', 'font-size': '1rem', 'font-weight': '700' }"
+          [rounded]="true"
+        ></p-button>
+      </div>
+    </ng-template>
+  </p-card>
 
   <div *ngIf="loading" class="loading-container">
-    <i class="pi pi-spin pi-spinner" style="font-size: 3rem; color: #667eea;"></i>
-    <p>Loading dashboard data...</p>
+    <p-skeleton width="100%" height="200px" [style]="{ 'margin-bottom': '1.5rem' }"></p-skeleton>
+    <p-skeleton width="100%" height="200px"></p-skeleton>
   </div>
 
   <div *ngIf="!loading" class="stats-grid">
-    <p-card>
-      <div class="stat-card">
-        <div class="stat-icon">
-          <i class="pi pi-clock" style="font-size: 3rem; color: var(--orange-500);"></i>
+    <p-card [style]="{ height: '100%' }">
+      <ng-template pTemplate="header">
+        <div class="stat-header stat-header-warning">
+          <i class="pi pi-clock"></i>
         </div>
-        <div class="stat-content">
-          <h2>{{ pendingCount }}</h2>
-          <p>Pending Tubes</p>
-        </div>
+      </ng-template>
+      <div class="stat-content">
+        <div class="stat-number">{{ pendingCount }}</div>
+        <div class="stat-label">Pending Tubes</div>
+        <p-badge
+          [value]="pendingCount"
+          severity="warn"
+          [style]="{ 'margin-top': '1rem', 'font-size': '1.25rem', padding: '0.5rem 1rem' }"
+        ></p-badge>
       </div>
     </p-card>
 
-    <p-card>
-      <div class="stat-card">
-        <div class="stat-icon">
-          <i class="pi pi-check-circle" style="font-size: 3rem; color: var(--green-500);"></i>
+    <p-card [style]="{ height: '100%' }">
+      <ng-template pTemplate="header">
+        <div class="stat-header stat-header-success">
+          <i class="pi pi-check-circle"></i>
         </div>
-        <div class="stat-content">
-          <h2>{{ completedToday }}</h2>
-          <p>Completed Today</p>
-        </div>
+      </ng-template>
+      <div class="stat-content">
+        <div class="stat-number">{{ completedToday }}</div>
+        <div class="stat-label">Completed Today</div>
+        <p-chip
+          label="Great Progress!"
+          icon="pi pi-thumbs-up"
+          [style]="{ 'margin-top': '1rem', 'background-color': '#10b981', color: '#fff' }"
+        ></p-chip>
       </div>
     </p-card>
   </div>
 
+  <p-divider *ngIf="!loading"></p-divider>
+
   <div *ngIf="!loading" class="actions-grid">
-    <p-card>
+    <p-card [style]="{ height: '100%', cursor: 'pointer' }" (click)="navigate('/lab/pending')">
       <div class="action-card">
+        <div class="action-icon action-icon-warning">
+          <i class="pi pi-clock"></i>
+        </div>
         <h3>Pending Tubes</h3>
-        <p>View and process tubes awaiting lab results</p>
+        <p>
+          View and process tubes awaiting lab results. Enter test results and complete analysis.
+        </p>
         <p-button
-          label="View Pending"
-          icon="pi pi-list"
-          routerLink="/lab/pending"
-          styleClass="w-full"
+          label="Process Now"
+          icon="pi pi-arrow-right"
+          [text]="true"
+          styleClass="w-full mt-3"
         ></p-button>
       </div>
     </p-card>
 
-    <p-card>
+    <p-card [style]="{ height: '100%', cursor: 'pointer' }" (click)="navigate('/lab/patients')">
       <div class="action-card">
+        <div class="action-icon action-icon-info">
+          <i class="pi pi-search"></i>
+        </div>
         <h3>Search Patient</h3>
-        <p>Search for patients and view their lab results</p>
+        <p>Search for patients and view their complete lab results history and tube information.</p>
         <p-button
-          label="Search Patient"
-          icon="pi pi-search"
-          routerLink="/lab/patients"
-          styleClass="w-full"
+          label="Search Now"
+          icon="pi pi-arrow-right"
+          [text]="true"
+          styleClass="w-full mt-3"
         ></p-button>
       </div>
     </p-card>
   </div>
 </div>
-

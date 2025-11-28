@@ -1,9 +1,17 @@
 <div class="pending-container">
   <p-card>
-    <div class="card-header">
-      <h2>Pending Tubes</h2>
-      <p>Tubes awaiting lab test results</p>
-    </div>
+    <ng-template pTemplate="header">
+      <div class="card-header">
+        <div class="header-content">
+          <i class="pi pi-clock" style="font-size: 3rem; color: #fff; margin-right: 1rem;"></i>
+          <div>
+            <h2>Pending Tubes</h2>
+            <p>Tubes awaiting lab test results</p>
+          </div>
+        </div>
+        <p-badge [value]="tubes.length" severity="warn" [style]="{'font-size': '1.25rem', 'padding': '0.5rem 1rem'}"></p-badge>
+      </div>
+    </ng-template>
 
     <p-table
       [value]="tubes"

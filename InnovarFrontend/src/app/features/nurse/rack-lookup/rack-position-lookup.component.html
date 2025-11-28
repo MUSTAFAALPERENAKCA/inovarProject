@@ -1,9 +1,16 @@
 <div class="lookup-container">
   <p-card>
-    <div class="card-header">
-      <h2>Rack Position Lookup</h2>
-      <p>Find a tube by its rack position (row and column)</p>
-    </div>
+    <ng-template pTemplate="header">
+      <div class="card-header">
+        <div class="header-content">
+          <i class="pi pi-search" style="font-size: 3rem; color: #fff; margin-right: 1rem;"></i>
+          <div>
+            <h2>Rack Position Lookup</h2>
+            <p>Find a tube by its rack position (row and column)</p>
+          </div>
+        </div>
+      </div>
+    </ng-template>
 
     <form [formGroup]="lookupForm" (ngSubmit)="onSearch()" class="lookup-form">
       <div class="form-row">
@@ -42,8 +49,14 @@
     </form>
 
     <div class="result-section" *ngIf="tube">
-      <h3>Tube Found</h3>
-      <p-card>
+      <p-divider></p-divider>
+      <p-panel header="Tube Found" [toggleable]="true" [collapsed]="false" styleClass="mt-4">
+        <ng-template pTemplate="header">
+          <div class="panel-header">
+            <i class="pi pi-check-circle mr-2"></i>
+            <span>Tube Found</span>
+          </div>
+        </ng-template>
         <div class="tube-info">
           <div class="info-row">
             <strong>Patient:</strong>
@@ -66,7 +79,7 @@
             <span>{{ tube.collectionDateTime | date: 'short' }}</span>
           </div>
         </div>
-      </p-card>
+      </p-panel>
     </div>
   </p-card>
 </div>

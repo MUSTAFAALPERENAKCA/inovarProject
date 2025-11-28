@@ -1,16 +1,25 @@
 <div class="form-container">
-  <p-card>
-    <div class="card-header">
-      <h2>Register Blood Tube</h2>
-      <p>Enter patient information and tube details</p>
-    </div>
+  <p-card [style]="{'max-width': '1000px', 'margin': '0 auto'}">
+    <ng-template pTemplate="header">
+      <div class="card-header">
+        <div class="header-content">
+          <i class="pi pi-flask" style="font-size: 3rem; color: #fff; margin-right: 1rem;"></i>
+          <div>
+            <h2>Register Blood Tube</h2>
+            <p>Enter patient information and tube details</p>
+          </div>
+        </div>
+      </div>
+    </ng-template>
 
     <form [formGroup]="collectionForm" (ngSubmit)="onSubmit()" class="collection-form">
-      <div class="form-section patient-section">
-        <div class="section-header">
-          <i class="pi pi-user section-icon"></i>
-          <h3>Patient Information</h3>
-        </div>
+      <p-fieldset legend="Patient Information" [toggleable]="true" [collapsed]="false" styleClass="mb-4">
+        <ng-template pTemplate="header">
+          <div class="fieldset-header">
+            <i class="pi pi-user mr-2"></i>
+            <span>Patient Information</span>
+          </div>
+        </ng-template>
         <div formGroupName="patient" class="form-grid">
           <div class="field">
             <label for="nationalId">National ID (11 digits) *</label>
@@ -65,6 +74,7 @@
               type="date"
               pInputText
               formControlName="dateOfBirth"
+              [max]="maxDate"
               styleClass="w-full"
             />
           </div>
@@ -93,13 +103,15 @@
             />
           </div>
         </div>
-      </div>
+      </p-fieldset>
 
-      <div class="form-section tube-section">
-        <div class="section-header">
-          <i class="pi pi-flask section-icon"></i>
-          <h3>Tube Information</h3>
-        </div>
+      <p-fieldset legend="Tube Information" [toggleable]="true" [collapsed]="false" styleClass="mb-4">
+        <ng-template pTemplate="header">
+          <div class="fieldset-header">
+            <i class="pi pi-flask mr-2"></i>
+            <span>Tube Information</span>
+          </div>
+        </ng-template>
         <div class="form-grid">
           <div class="field">
             <label for="barcodeNumber">Barcode Number *</label>
@@ -152,7 +164,9 @@
             ></textarea>
           </div>
         </div>
-      </div>
+      </p-fieldset>
+
+      <p-divider></p-divider>
 
       <div class="form-actions">
         <p-button

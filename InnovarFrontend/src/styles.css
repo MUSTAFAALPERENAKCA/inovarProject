@@ -40,64 +40,388 @@ body {
   line-height: 1.6;
 }
 
-/* Medical-themed button styles */
+/* Premium button styles */
 .p-button {
-  font-weight: 500;
-  border-radius: 6px;
-  transition: all 0.2s ease;
+  font-weight: 700;
+  border-radius: 14px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.p-button:not(.p-button-outlined):not(.p-button-text) {
-  background: var(--medical-primary);
-  border-color: var(--medical-primary);
+.p-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
 }
 
-.p-button:not(.p-button-outlined):not(.p-button-text):hover {
-  background: var(--medical-primary-dark);
-  border-color: var(--medical-primary-dark);
+.p-button:hover::before {
+  width: 400px;
+  height: 400px;
 }
 
-/* Card styling for medical clarity */
+.p-button:not(.p-button-outlined):not(.p-button-text):not(.p-button-danger):not(.p-button-warning):not(.p-button-success):not(.p-button-info) {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  color: white;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.p-button:not(.p-button-outlined):not(.p-button-text):not(.p-button-danger):not(.p-button-warning):not(.p-button-success):not(.p-button-info):hover {
+  background: linear-gradient(135deg, #5568d3 0%, #6a3d8f 100%);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 35px rgba(102, 126, 234, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.p-button.p-button-outlined {
+  border: 2.5px solid #667eea;
+  color: #667eea;
+  background: rgba(102, 126, 234, 0.05);
+  font-weight: 700;
+}
+
+.p-button.p-button-outlined:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: transparent;
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
+}
+
+.p-button.p-button-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+}
+
+.p-button.p-button-danger:hover {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5);
+}
+
+.p-button.p-button-warning {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+}
+
+.p-button.p-button-warning:hover {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5);
+}
+
+/* Premium card styling */
 .p-card {
-  border-radius: 8px;
-  box-shadow: var(--medical-shadow);
-  border: 1px solid var(--medical-border);
+  border-radius: 24px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(102, 126, 234, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.98) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  position: relative;
 }
 
-/* Input fields - larger for medical staff */
+.p-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  transform: scaleX(0);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.4);
+}
+
+.p-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: cardFloat 30s linear infinite;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.p-card:hover::after {
+  opacity: 1;
+}
+
+@keyframes cardFloat {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(-40px, -40px) rotate(360deg); }
+}
+
+.p-card:hover {
+  transform: translateY(-10px) scale(1.01);
+  box-shadow: 0 25px 80px rgba(102, 126, 234, 0.25), 0 0 0 1px rgba(102, 126, 234, 0.1);
+  border-color: rgba(102, 126, 234, 0.3);
+}
+
+.p-card:hover::before {
+  transform: scaleX(1);
+}
+
+.p-card-body {
+  padding: 2.5rem;
+}
+
+.p-card-header {
+  padding: 0;
+  border-radius: 24px 24px 0 0;
+  overflow: hidden;
+}
+
+/* Premium input fields */
 .p-inputtext,
 .p-dropdown,
-.p-calendar input {
+.p-calendar input,
+.p-inputnumber-input {
   font-size: 15px;
-  padding: 0.75rem;
-  border-radius: 6px;
+  padding: 1rem 1.5rem;
+  border-radius: 14px;
+  border: 2.5px solid #e2e8f0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%);
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* Table styling */
+.p-inputtext:focus,
+.p-dropdown:focus-within,
+.p-calendar input:focus,
+.p-inputnumber-input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 5px rgba(102, 126, 234, 0.15), 0 4px 15px rgba(102, 126, 234, 0.2);
+  background: white;
+  transform: translateY(-2px);
+}
+
+.p-input-icon-left,
+.p-input-icon-right {
+  width: 100%;
+}
+
+.p-input-icon-left > i,
+.p-input-icon-right > i {
+  color: #667eea;
+  font-size: 1.1rem;
+}
+
+/* Premium table styling */
 .p-datatable {
   font-size: 14px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(102, 126, 234, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
 }
 
 .p-datatable .p-datatable-thead > tr > th {
-  background: var(--medical-accent);
-  color: var(--medical-text);
-  font-weight: 600;
-  border-bottom: 2px solid var(--medical-primary);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 800;
+  font-size: 0.95rem;
+  padding: 1.5rem 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 -2px 0 rgba(255, 255, 255, 0.1);
+}
+
+.p-datatable .p-datatable-tbody > tr {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-bottom: 1px solid rgba(241, 245, 249, 0.8);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.p-datatable .p-datatable-tbody > tr:nth-child(even) {
+  background: rgba(248, 250, 252, 0.6);
 }
 
 .p-datatable .p-datatable-tbody > tr:hover {
-  background: var(--medical-accent);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+  transform: scale(1.01) translateX(5px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.15);
+  border-left: 4px solid #667eea;
 }
 
-/* Toast notifications */
+.p-datatable .p-datatable-tbody > tr > td {
+  padding: 1.5rem 1.25rem;
+  border: none;
+  font-weight: 500;
+}
+
+/* Premium Toast notifications */
 .p-toast {
   font-size: 14px;
 }
 
-/* Dialog styling */
+::ng-deep .p-toast .p-toast-message {
+  border-radius: 12px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+/* Premium Dialog styling */
 .p-dialog {
-  border-radius: 8px;
-  box-shadow: var(--medical-shadow-hover);
+  border-radius: 24px !important;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  overflow: hidden !important;
+}
+
+::ng-deep .p-dialog .p-dialog-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+  padding: 1.5rem 2rem !important;
+  border-radius: 24px 24px 0 0 !important;
+  border: none !important;
+}
+
+::ng-deep .p-dialog .p-dialog-header .p-dialog-title {
+  font-weight: 800 !important;
+  font-size: 1.5rem !important;
+  letter-spacing: -0.5px !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+}
+
+::ng-deep .p-dialog .p-dialog-content {
+  padding: 2rem !important;
+  background: rgba(255, 255, 255, 0.98) !important;
+}
+
+/* Premium Fieldset */
+::ng-deep .p-fieldset {
+  border-radius: 20px !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  overflow: hidden !important;
+}
+
+::ng-deep .p-fieldset .p-fieldset-legend {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%) !important;
+  border-radius: 12px !important;
+  padding: 1rem 1.5rem !important;
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+  color: #1e293b !important;
+  border: 2px solid rgba(102, 126, 234, 0.2) !important;
+}
+
+::ng-deep .p-fieldset .p-fieldset-content {
+  padding: 2rem !important;
+}
+
+/* Premium Select/Dropdown */
+::ng-deep .p-select {
+  border-radius: 12px !important;
+}
+
+::ng-deep .p-select .p-select-trigger {
+  border-radius: 12px !important;
+}
+
+/* Premium Calendar */
+::ng-deep .p-calendar {
+  width: 100% !important;
+}
+
+::ng-deep .p-calendar .p-inputtext {
+  border-radius: 12px !important;
+}
+
+::ng-deep .p-datepicker {
+  border-radius: 16px !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Premium InputNumber */
+::ng-deep .p-inputnumber {
+  width: 100% !important;
+}
+
+::ng-deep .p-inputnumber .p-inputtext {
+  border-radius: 12px !important;
+}
+
+/* Premium Textarea */
+::ng-deep .p-inputtextarea {
+  border-radius: 12px !important;
+  font-family: inherit !important;
+}
+
+/* Premium Tag */
+::ng-deep .p-tag {
+  font-weight: 600 !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 20px !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 0.3px !important;
+}
+
+/* Premium Badge */
+::ng-deep .p-badge {
+  font-weight: 700 !important;
+  min-width: 2rem !important;
+  height: 2rem !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
+}
+
+/* Premium ProgressBar */
+::ng-deep .p-progressbar {
+  border-radius: 10px !important;
+  overflow: hidden !important;
+  height: 0.75rem !important;
+  background: rgba(102, 126, 234, 0.1) !important;
+}
+
+::ng-deep .p-progressbar .p-progressbar-value {
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%) !important;
+  border-radius: 10px !important;
+}
+
+/* Premium Skeleton */
+::ng-deep .p-skeleton {
+  border-radius: 12px !important;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%) !important;
+  background-size: 200% 100% !important;
+  animation: loading 1.5s ease-in-out infinite !important;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 /* Medical-themed utility classes */

@@ -6,13 +6,15 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
+import { PanelModule } from 'primeng/panel';
+import { DividerModule } from 'primeng/divider';
 import { MessageService } from 'primeng/api';
 import { ApiService, BloodTube } from '../../../core/services/api.service';
 
 @Component({
   selector: 'app-rack-position-lookup',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, CardModule, InputNumberModule, ButtonModule, TagModule, ToastModule],
+  imports: [CommonModule, ReactiveFormsModule, CardModule, InputNumberModule, ButtonModule, TagModule, ToastModule, PanelModule, DividerModule],
   providers: [MessageService],
   templateUrl: './rack-position-lookup.component.html',
   styleUrl: './rack-position-lookup.component.css'

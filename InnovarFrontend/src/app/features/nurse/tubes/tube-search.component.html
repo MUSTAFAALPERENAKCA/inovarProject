@@ -1,9 +1,16 @@
 <div class="search-container">
   <p-card>
-    <div class="card-header">
-      <h2>My Tubes</h2>
-      <p>Search and view all tubes you've registered</p>
-    </div>
+    <ng-template pTemplate="header">
+      <div class="card-header">
+        <div class="header-content">
+          <i class="pi pi-list" style="font-size: 3rem; color: #fff; margin-right: 1rem;"></i>
+          <div>
+            <h2>My Tubes</h2>
+            <p>Search and view all tubes you've registered</p>
+          </div>
+        </div>
+      </div>
+    </ng-template>
 
     <div class="search-section">
       <span class="p-input-icon-left">

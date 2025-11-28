@@ -1,10 +1,19 @@
 <div class="medical-container">
   <p-toast></p-toast>
   
-  <p-card header="Search Patient" class="medical-card">
+  <p-card [style]="{'margin-bottom': '2rem'}">
+    <ng-template pTemplate="header">
+      <div class="search-header">
+        <i class="pi pi-search" style="font-size: 2rem; color: #fff; margin-right: 1rem;"></i>
+        <div>
+          <h2>Search Patient</h2>
+          <p>Find patients by National ID or name</p>
+        </div>
+      </div>
+    </ng-template>
     <div class="p-fluid">
-      <div class="p-field mb-3">
-        <label for="searchTerm">Search by National ID or Name</label>
+      <span class="p-input-icon-left w-full mb-3">
+        <i class="pi pi-search"></i>
         <input 
           id="searchTerm" 
           type="text" 
@@ -13,14 +22,15 @@
           (keyup.enter)="onSearch()"
           placeholder="Enter National ID or patient name"
           class="w-full"
+          [style]="{'padding-left': '2.5rem'}"
         />
-      </div>
+      </span>
       <p-button 
         label="Search" 
         icon="pi pi-search" 
         (onClick)="onSearch()"
         [loading]="loading"
-        class="w-full"
+        styleClass="w-full"
       ></p-button>
     </div>
   </p-card>
@@ -57,15 +67,51 @@
     </p-table>
   </p-card>
 
-  <p-card *ngIf="selectedPatient" header="Patient Details & Lab Results" class="medical-card">
-    <div class="mb-4">
-      <h3>{{ selectedPatient.firstName }} {{ selectedPatient.lastName }}</h3>
-      <p><strong>National ID:</strong> {{ selectedPatient.nationalId }}</p>
-      <p><strong>Date of Birth:</strong> {{ selectedPatient.dateOfBirth | date:'shortDate' }}</p>
-      <p><strong>Gender:</strong> {{ selectedPatient.gender || 'N/A' }}</p>
-      <p><strong>Phone:</strong> {{ selectedPatient.phoneNumber || 'N/A' }}</p>
-      <p *ngIf="selectedPatient.notes"><strong>Notes:</strong> {{ selectedPatient.notes }}</p>
+  <p-card *ngIf="selectedPatient" [style]="{'margin-top': '2rem'}">
+    <ng-template pTemplate="header">
+      <div class="patient-header">
+        <p-avatar [label]="selectedPatient.firstName.charAt(0) + selectedPatient.lastName.charAt(0)" shape="circle" [style]="{'background-color': 'var(--primary-color)', 'color': '#fff', 'font-size': '1.5rem', 'width': '4rem', 'height': '4rem', 'margin-right': '1rem'}"></p-avatar>
+        <div>
+          <h2>{{ selectedPatient.firstName }} {{ selectedPatient.lastName }}</h2>
+          <p class="text-color-secondary">Patient Information</p>
+        </div>
+      </div>
+    </ng-template>
+    <div class="patient-info-grid">
+      <div class="info-item">
+        <i class="pi pi-id-card"></i>
+        <div>
+          <label>National ID</label>
+          <p>{{ selectedPatient.nationalId }}</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <i class="pi pi-calendar"></i>
+        <div>
+          <label>Date of Birth</label>
+          <p>{{ selectedPatient.dateOfBirth | date:'shortDate' }}</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <i class="pi pi-user"></i>
+        <div>
+          <label>Gender</label>
+          <p>{{ selectedPatient.gender || 'N/A' }}</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <i class="pi pi-phone"></i>
+        <div>
+          <label>Phone</label>
+          <p>{{ selectedPatient.phoneNumber || 'N/A' }}</p>
+        </div>
+      </div>
     </div>
+    <p *ngIf="selectedPatient.notes" class="patient-notes">
+      <i class="pi pi-info-circle mr-2"></i>
+      <strong>Notes:</strong> {{ selectedPatient.notes }}
+    </p>
+    <p-divider></p-divider>
 
     <p-tabs>
       <p-tab header="Blood Tubes">

@@ -6,13 +6,14 @@ import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
+import { BadgeModule } from 'primeng/badge';
 import { MessageService } from 'primeng/api';
 import { ApiService, BloodTube } from '../../../core/services/api.service';
 
 @Component({
   selector: 'app-pending-tubes-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, CardModule, TableModule, TagModule, ButtonModule, ToastModule],
+  imports: [CommonModule, RouterModule, CardModule, TableModule, TagModule, ButtonModule, ToastModule, BadgeModule],
   providers: [MessageService],
   templateUrl: './pending-tubes-list.component.html',
   styleUrl: './pending-tubes-list.component.css'

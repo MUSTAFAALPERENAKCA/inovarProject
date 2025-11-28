@@ -1,56 +1,97 @@
 <div class="dashboard-container">
-  <h1>Nurse Dashboard</h1>
+  <p-card [style]="{'margin-bottom': '2rem', 'border': 'none', 'box-shadow': 'none', 'background': 'transparent'}">
+    <ng-template pTemplate="body">
+      <div class="dashboard-header">
+        <div class="header-text">
+          <h1>Nurse Dashboard</h1>
+          <p class="subtitle">Welcome back! Manage blood tube collections efficiently</p>
+        </div>
+        <p-button 
+          label="Register New Tube" 
+          icon="pi pi-plus" 
+          routerLink="/nurse/collect"
+          [style]="{'height': '3.5rem', 'font-size': '1rem', 'font-weight': '700'}"
+          [rounded]="true"
+        ></p-button>
+      </div>
+    </ng-template>
+  </p-card>
 
   <div class="stats-grid">
-    <p-card>
-      <div class="stat-card">
-        <div class="stat-icon">
-          <i class="pi pi-inbox" style="font-size: 3rem; color: var(--primary-color);"></i>
+    <p-card [style]="{'height': '100%'}">
+      <ng-template pTemplate="header">
+        <div class="stat-header stat-header-primary">
+          <i class="pi pi-inbox"></i>
         </div>
-        <div class="stat-content">
-          <h2>{{ tubesToday }}</h2>
-          <p>Tubes Registered Today</p>
+      </ng-template>
+      <div class="stat-content">
+        <div class="stat-number">{{ tubesToday }}</div>
+        <div class="stat-label">Tubes Registered Today</div>
+        <p-progressBar [value]="tubesToday * 10" [showValue]="false" [style]="{'margin-top': '1rem', 'height': '0.5rem'}"></p-progressBar>
+      </div>
+    </p-card>
+
+    <p-card [style]="{'height': '100%'}">
+      <ng-template pTemplate="header">
+        <div class="stat-header stat-header-success">
+          <i class="pi pi-check-circle"></i>
         </div>
+      </ng-template>
+      <div class="stat-content">
+        <div class="stat-number">Active</div>
+        <div class="stat-label">System Status</div>
+        <p-chip label="Online" icon="pi pi-circle-fill" [style]="{'margin-top': '1rem', 'background-color': '#10b981', 'color': '#fff'}"></p-chip>
       </div>
     </p-card>
   </div>
 
+  <p-divider></p-divider>
+
   <div class="actions-grid">
-    <p-card>
+    <p-card [style]="{'height': '100%', 'cursor': 'pointer'}" (click)="navigate('/nurse/collect')">
       <div class="action-card">
+        <div class="action-icon action-icon-primary">
+          <i class="pi pi-plus-circle"></i>
+        </div>
         <h3>Register New Blood Tube</h3>
-        <p>Collect a blood sample and register it in the system</p>
+        <p>Collect a blood sample and register it in the system with patient information</p>
         <p-button
-          label="Register Tube"
-          icon="pi pi-plus"
-          routerLink="/nurse/collect"
-          styleClass="w-full"
+          label="Get Started"
+          icon="pi pi-arrow-right"
+          [text]="true"
+          styleClass="w-full mt-3"
         ></p-button>
       </div>
     </p-card>
 
-    <p-card>
+    <p-card [style]="{'height': '100%', 'cursor': 'pointer'}" (click)="navigate('/nurse/rack-lookup')">
       <div class="action-card">
+        <div class="action-icon action-icon-info">
+          <i class="pi pi-search"></i>
+        </div>
         <h3>Rack Position Lookup</h3>
-        <p>Find a tube by its rack position (row/column)</p>
+        <p>Find a tube quickly by its rack position (row/column coordinates)</p>
         <p-button
-          label="Lookup Position"
-          icon="pi pi-search"
-          routerLink="/nurse/rack-lookup"
-          styleClass="w-full"
+          label="Search Now"
+          icon="pi pi-arrow-right"
+          [text]="true"
+          styleClass="w-full mt-3"
         ></p-button>
       </div>
     </p-card>
 
-    <p-card>
+    <p-card [style]="{'height': '100%', 'cursor': 'pointer'}" (click)="navigate('/nurse/tubes')">
       <div class="action-card">
+        <div class="action-icon action-icon-warning">
+          <i class="pi pi-list"></i>
+        </div>
         <h3>My Tubes</h3>
-        <p>View and search all tubes you've registered</p>
+        <p>View and search all tubes you've registered with detailed information</p>
         <p-button
-          label="View Tubes"
-          icon="pi pi-list"
-          routerLink="/nurse/tubes"
-          styleClass="w-full"
+          label="View All"
+          icon="pi pi-arrow-right"
+          [text]="true"
+          styleClass="w-full mt-3"
         ></p-button>
       </div>
     </p-card>

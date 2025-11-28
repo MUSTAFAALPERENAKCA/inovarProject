@@ -1,19 +1,58 @@
 <div class="layout-container">
-  <p-menubar [model]="getMenuItems()" styleClass="top-menu">
-    <ng-template #end>
-      <div class="user-info">
-        <span class="user-name">{{ userFullName }}</span>
-        <span class="user-role">{{ userRole }}</span>
+  <nav class="premium-navbar">
+    <div class="navbar-content">
+      <div class="navbar-left">
+        <div class="logo-container">
+          <div class="logo-icon-wrapper">
+            <i class="pi pi-heart"></i>
+          </div>
+          <div class="logo-text-container">
+            <span class="logo-main">Inovar</span>
+            <span class="logo-sub">Health System</span>
+          </div>
+        </div>
+        
+        <div class="nav-menu">
+          <a 
+            *ngFor="let item of getMenuItems()" 
+            [routerLink]="item.routerLink"
+            routerLinkActive="active"
+            class="nav-item"
+          >
+            <i [class]="item.icon"></i>
+            <span>{{ item.label }}</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="navbar-right">
+        <div class="user-profile">
+          <p-avatar 
+            [label]="userFullName?.charAt(0) || 'U'" 
+            shape="circle" 
+            [style]="{'width': '2.5rem', 'height': '2.5rem', 'font-size': '1.1rem', 'font-weight': '700'}"
+            styleClass="user-avatar"
+          ></p-avatar>
+          <div class="user-info-text">
+            <span class="user-name">{{ userFullName }}</span>
+            <p-chip 
+              [label]="userRole || 'User'" 
+              [style]="{'height': '1.5rem', 'font-size': '0.75rem', 'font-weight': '600'}"
+            ></p-chip>
+          </div>
+        </div>
         <p-button
           label="Logout"
           icon="pi pi-sign-out"
           severity="danger"
           (onClick)="logout()"
           [text]="true"
+          [rounded]="true"
+          styleClass="logout-btn"
         ></p-button>
       </div>
-    </ng-template>
-  </p-menubar>
+    </div>
+  </nav>
 
   <div class="content-wrapper">
     <router-outlet></router-outlet>

@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CardModule } from 'primeng/card';
+import { PanelModule } from 'primeng/panel';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
@@ -22,6 +23,7 @@ import { ApiService, BloodTube, LabResult } from '../../../core/services/api.ser
     FormsModule,
     ReactiveFormsModule,
     CardModule,
+    PanelModule,
     InputTextModule,
     ButtonModule,
     TableModule,

@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
+import { DividerModule } from 'primeng/divider';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { ChipModule } from 'primeng/chip';
 import { ApiService } from '../../../core/services/api.service';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-nurse-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, CardModule, ButtonModule, TagModule],
+  imports: [CommonModule, RouterModule, CardModule, ButtonModule, TagModule, DividerModule, ProgressBarModule, ChipModule],
   templateUrl: './nurse-dashboard.component.html',
   styleUrl: './nurse-dashboard.component.css'
 })
@@ -20,8 +23,13 @@ export class NurseDashboardComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
+
+  navigate(path: string): void {
+    this.router.navigate([path]);
+  }
 
   ngOnInit(): void {
     this.loadDashboardData();
